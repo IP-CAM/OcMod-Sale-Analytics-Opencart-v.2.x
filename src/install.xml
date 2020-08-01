@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>Sale Analytics</name>                <!-- Название модификатора -->
+  <code>sale_analytics</code>                <!-- Уникальный код модификатора -->
+  <version>1.0</version>           <!-- Версия -->
+  <author>bonifat</author>            <!-- Автор -->
+ 
+<file path="admin/controller/common/column_left.php">
+  <operation error="skip">
+    <search trim="true">
+      <![CDATA[
+        $report_sale = array();
+      ]]>
+    </search>
+    <add position="after">
+      <![CDATA[
+        if ($this->user->hasPermission('access', 'report/sale_analytics') && $this->config->get('sale_analytics_status') == 1) {
+                $report_sale[] = array(
+                    'name'       => $this->language->get('text_report_sale_analytics'),
+                    'href'     => $this->url->link('report/sale_analytics', 'token=' . $this->session->data['token'], true),
+                    'children' => array()
+                );
+            }
+      ]]>
+    </add>
+  </operation>
+</file>
+ 
+<file path="admin/language/ru-ru/common/column_left.php">
+  <operation error="skip">
+    <search trim="true">
+      <![CDATA[
+        $_['text_report_sale_order']
+      ]]>
+    </search>
+    <add position="before">
+      <![CDATA[
+        $_['text_report_sale_analytics'] = 'Аналитика продаж';
+      ]]>
+    </add>
+  </operation>
+</file>
+ 
+</modification>
